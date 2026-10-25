@@ -11,15 +11,27 @@
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/babel-standalone/babel.min.js"></script>
-    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <!-- <script src="https://unpkg.com/@tailwindcss/browser@4"></script> -->
 
     <script type="text/babel">
+      function Counter() {
+        const [count, setCount] = React.useState(0);
+        return (
+          <div>
+            <p>Counter : {count}</p>
+            <button onClick={() => setCount((preValue) => preValue + 2)}>
+              Atualizar
+            </button>
+          </div>
+        );
+      }
       function App() {
         return (
           <main className="bg-gray-200 p-4">
             <h1 className="text-2xl font-bold bg-orange-500">
-              Hello, React 54!
+              Hello, React 55!
             </h1>
+            <Counter />
           </main>
         );
       }
