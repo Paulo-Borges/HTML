@@ -14,6 +14,38 @@
     <!-- <script src="https://unpkg.com/@tailwindcss/browser@4"></script> -->
 
     <script type="text/babel">
+      function ListNames() {
+        const [names] = React.useState([
+          "Borges",
+          "Julia",
+          "Ingryd",
+          "Beth",
+          "Heloisa",
+          "Perola",
+          "Anthi",
+        ]);
+        const [search, setSearch] = React.useState("");
+
+        return (
+          <div>
+            <input
+              type="text"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Search..."
+            />
+
+            <ul>
+              {names
+                .filter((n) => n.toLowerCase().includes(search.toLowerCase()))
+                .map((n, index) => (
+                  <li key={index}>{n}</li>
+                ))}
+            </ul>
+          </div>
+        );
+      }
+
       function Counter() {
         const [count, setCount] = React.useState(20);
         return (
@@ -38,6 +70,7 @@
               Hello, React 55!
             </h1>
             <Counter />
+            <ListNames />
           </main>
         );
       }
