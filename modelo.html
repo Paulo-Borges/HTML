@@ -15,12 +15,18 @@
 
     <script type="text/babel">
       function Counter() {
-        const [count, setCount] = React.useState(0);
+        const [count, setCount] = React.useState(20);
         return (
           <div>
             <p>Counter : {count}</p>
+            {count % 2 === 0 ? <p>Par</p> : <p>Ímpar</p>}
+            {count > 18 && <p>Maior de idade</p>}
+            {count < 18 && <p>Menor de idade</p>}
             <button onClick={() => setCount((preValue) => preValue + 2)}>
               Atualizar
+            </button>
+            <button onClick={() => setCount((preValue) => preValue - 1)}>
+              Diminuir
             </button>
           </div>
         );
