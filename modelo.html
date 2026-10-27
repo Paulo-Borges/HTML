@@ -46,8 +46,26 @@
         );
       }
 
+      const CounterContext = React.createContext();
+
+      function CounterProvider({ children }) {
+        const [savedCount, setSavedCount] = React.useState([]);
+
+        function saveCount(count) {
+          setSavedCount((prev) => [...prev, count]);
+        }
+
+        return (
+          <CounterContext.Provider value={{ savedCount, saveCount }}>
+            {children}
+          </CounterContext.Provider>
+        );
+      }
+
       function Counter() {
-        const [count, setCount] = React.useState(20);
+        const [count, setCount] = React.useState(0);
+        const { saveCount } = React.useContext(CounterContext);
+
         return (
           <div>
             <p>Counter : {count}</p>
@@ -60,16 +78,37 @@
             <button onClick={() => setCount((preValue) => preValue - 1)}>
               Diminuir
             </button>
+            <button onClick={() => saveCount(count)}>Salvar </button>
           </div>
         );
       }
+
+      function CounterList() {
+        const { savedCount } = React.useContext(CounterContext);
+
+        return (
+          <div>
+            <h2> Valores Salvos</h2>
+            <ul>
+              {savedCount.map((count, index) => (
+                <li key={index}>{count}</li>
+              ))}
+            </ul>
+          </div>
+        );
+      }
+
       function App() {
         return (
           <main className="bg-gray-200 p-4">
             <h1 className="text-2xl font-bold bg-orange-500">
               Hello, React 55!
             </h1>
-            <Counter />
+            <CounterProvider>
+              <Counter />
+              <hr />
+              <CounterList />
+            </CounterProvider>
             <ListNames />
           </main>
         );
