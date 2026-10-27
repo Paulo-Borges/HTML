@@ -64,10 +64,31 @@
 
       function Counter() {
         const [count, setCount] = React.useState(0);
+        const [name, setName] = React.useState("");
         const { saveCount } = React.useContext(CounterContext);
+
+        React.useEffect(() => {
+          if (count > 0) {
+            console.log("Componente montado!", count);
+          }
+        }, [count]);
+
+        React.useEffect(() => {
+          console.log("Count or name Atualizados:", count, name);
+        }, [count, name]);
 
         return (
           <div>
+            <div>
+              <label>Nome: </label>
+              <input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Enter your name"
+              />
+            </div>
+
             <p>Counter : {count}</p>
             {count % 2 === 0 ? <p>Par</p> : <p>Ímpar</p>}
             {count > 18 && <p>Maior de idade</p>}
